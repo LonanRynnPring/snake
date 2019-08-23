@@ -1,27 +1,46 @@
 /** CONSTANTS **/
 
+class Snake{
+    constructor(name){
+    this._name = name;
+    this._SNAKE_COLOUR = 'lightgreen';
+    this._SNAKE_BORDER_COLOUR = 'darkgreen';
+    this._snake = [
+        {x: 150, y: 150},
+        {x: 140, y: 150},
+        {x: 130, y: 150},
+        {x: 120, y: 150},
+        {x: 110, y: 150}
+    ];
+    }
+    get name(){
+    return this._name;
+    }
+    get SNAKE_COLOUR(){
+        return this._SNAKE_COLOUR;
+    }
+    get SNAKE_BORDER_COLOUR(){
+        return this._SNAKE_BORDER_COLOUR;
+    }
+    get snake(){
+        return this._snake;
+    }
+    // get hops(){
+    // return this._hops;
+    // }
+    // increaseHops(){
+    // this._hops++;
+    // }
+}
 
-const SNAKE_COLOUR = 'lightgreen';
-const SNAKE_BORDER_COLOUR = 'darkgreen';
-
- let snake = [
-    {x: 150, y: 150},
-    {x: 140, y: 150},
-    {x: 130, y: 150},
-    {x: 120, y: 150},
-    {x: 110, y: 150}
-]
+const player = new Snake("player");
 
 let score = 0;
 
-// Horizontal velocity
 let dx = 10;
-// Vertical velocity
 let dy = 0;
 
-// Get the canvas element
 var gameCanvas = document.getElementById("gameCanvas");
-// Return a two dimensional drawing context
 var ctx = gameCanvas.getContext("2d");
 
 function clearCanvas() {
@@ -105,26 +124,14 @@ function didGameEnd() {
     hitToptWall ||
     hitBottomWall
 }  
- /**
-* Draws the snake on the canvas
-*/
+
 function drawSnake() {
-// loop through the snake parts drawing each part on the canvas
     snake.forEach(drawSnakePart)
 }
-/**
-* Draws a part of the snake on the canvas
-* @param { object } snakePart - The coordinates where the part should be drawn
-*/
 function drawSnakePart(snakePart) {
-    // Set the colour of the snake part
-    ctx.fillStyle = SNAKE_COLOUR;
-    // Set the border colour of the snake part
-    ctx.strokestyle = SNAKE_BORDER_COLOUR;
-    // Draw a "filled" rectangle to represent the snake part at the coordinates
-    // the part is located
+    ctx.fillStyle = player.SNAKE_COLOUR;
+    ctx.strokestyle = player.SNAKE_BORDER_COLOUR;
     ctx.fillRect(snakePart.x, snakePart.y, 10, 10);
-    // Draw a border around the snake part
     ctx.strokeRect(snakePart.x, snakePart.y, 10, 10);
 }
 
@@ -142,9 +149,7 @@ function createFood() {
 }
 
 function drawFood() {
-    let colour = ["red", "orange", "yellow", "green", "blue", "indigo", "violet"];
-    let randColour = colour[Math.floor(Math.random()* colour.length)]
-    ctx.fillStyle = randColour;
+    ctx.fillStyle = 'red';
     ctx.strokestyle = 'darkred';
     ctx.fillRect(foodX, foodY, 10, 10);
     ctx.strokeRect(foodX, foodY, 10, 10);
