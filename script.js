@@ -1,7 +1,9 @@
 /** CONSTANTS **/
 
 
-const SNAKE_COLOUR = 'lightgreen';
+const SNAKE_COLOUR = `rgb(${Math.floor(Math.random()* 255)}, ${Math.floor(Math.random()* 255)}, ${Math.floor(Math.random()* 255)})`;
+const backColour = `rgb(${Math.floor(Math.random()* 255)}, ${Math.floor(Math.random()* 255)}, ${Math.floor(Math.random()* 255)})`;
+// const SNAKE_COLOUR = `rgb(${Math.floor(Math.random()* 255)}, ${Math.floor(Math.random()* 255)}, ${Math.floor(Math.random()* 255)})`;
 const SNAKE_BORDER_COLOUR = 'darkgreen';
 
  let snake = [
@@ -25,7 +27,7 @@ var gameCanvas = document.getElementById("gameCanvas");
 var ctx = gameCanvas.getContext("2d");
 
 function clearCanvas() {
-    ctx.fillStyle = "lightblue";
+    ctx.fillStyle = backColour;
     ctx.strokestyle = "black";
     ctx.fillRect(0, 0, gameCanvas.width, gameCanvas.height);
     ctx.strokeRect(0, 0, gameCanvas.width, gameCanvas.height);
@@ -142,10 +144,9 @@ function createFood() {
 }
 
 function drawFood() {
-    let colour = ["red", "orange", "yellow", "green", "blue", "indigo", "violet"];
-    let randColour = colour[Math.floor(Math.random()* colour.length)]
+    let randColour = `rgb(${Math.floor(Math.random()* 255)}, ${Math.floor(Math.random()* 255)}, ${Math.floor(Math.random()* 255)})`;
     ctx.fillStyle = randColour;
-    ctx.strokestyle = 'darkred';
+    ctx.strokestyle = `rgb(${Math.floor(Math.random()* 255)}, ${Math.floor(Math.random()* 255)}, ${Math.floor(Math.random()* 255)})`;
     ctx.fillRect(foodX, foodY, 10, 10);
     ctx.strokeRect(foodX, foodY, 10, 10);
 }
