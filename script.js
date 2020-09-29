@@ -1,7 +1,7 @@
 /** CONSTANTS **/
 
 
-const SNAKE_COLOUR = `rgb(${Math.floor(Math.random()* 255)}, ${Math.floor(Math.random()* 255)}, ${Math.floor(Math.random()* 255)})`;
+let SNAKE_COLOUR = `rgb(${Math.floor(Math.random()* 255)}, ${Math.floor(Math.random()* 255)}, ${Math.floor(Math.random()* 255)})`;
 const backColour = `rgb(${Math.floor(Math.random()* 255)}, ${Math.floor(Math.random()* 255)}, ${Math.floor(Math.random()* 255)})`;
 // const SNAKE_COLOUR = `rgb(${Math.floor(Math.random()* 255)}, ${Math.floor(Math.random()* 255)}, ${Math.floor(Math.random()* 255)})`;
 const SNAKE_BORDER_COLOUR = 'darkgreen';
@@ -15,6 +15,8 @@ const SNAKE_BORDER_COLOUR = 'darkgreen';
 ]
 
 let score = 0;
+let level = 1;
+let speed = Math.max((100 - Math.floor(score/100)*5), 25);
 
 // Horizontal velocity
 let dx = 10;
@@ -37,7 +39,10 @@ main();
 document.addEventListener("keydown", changeDirection);
 
 function main(){
-    if (didGameEnd()) return;
+    if (didGameEnd()){
+        document.getElementById('level').innerHTML = `Game over!`;
+        return;
+    }
     setTimeout(function onTick() {
         changingDirection = false;
         clearCanvas();
@@ -45,7 +50,7 @@ function main(){
         advanceSnake();
         drawSnake();
         main();
-    }, 100);
+    }, speed);
 }
 
 function changeDirection(event) {
@@ -85,6 +90,11 @@ function advanceSnake() {
     const didEatFood = snake[0].x === foodX && snake[0].y === foodY;
     if (didEatFood) {
         score += 10;
+        if (score % 100 == 0){
+            SNAKE_COLOUR = `rgb(${Math.floor(Math.random()* 255)}, ${Math.floor(Math.random()* 255)}, ${Math.floor(Math.random()* 255)})`; 
+            level++;
+            document.getElementById('level').innerHTML = `Level ${level}`;
+        }
         document.getElementById('score').innerHTML = score;
         createFood();
     } else {
